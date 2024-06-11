@@ -1,10 +1,8 @@
 import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import cache from './cache';
-import rateLimiter from './rateLimiter';
-import ipstackService from './services/ipstackService';
-import ipdataService from './services/ipdataService';
-import getIpAddress from './services/getIpAddress';
+import rateLimiter from './rate-limiter';
+import { getIpAddress, ipdataService, ipstackService } from '@services';
 
 dotenv.config();
 

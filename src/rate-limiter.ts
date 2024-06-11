@@ -1,23 +1,5 @@
-type Vendors = 'ipstack' | 'ipdata';
-type TokenBucket = {
-	tokens: number;
-	lastRefill: number;
-};
-type Limits = {
-	maxTokens: number;
-	refillRate: number;
-};
-
-const VENDOR_OPTIONS: Record<Vendors, Limits> = {
-	ipstack: {
-		maxTokens: 50,
-		refillRate: 2
-	},
-	ipdata: {
-		maxTokens: 100,
-		refillRate: 1
-	}
-};
+import { Vendors, TokenBucket } from '@types';
+import { VENDOR_OPTIONS } from './global';
 
 const tokenBucketsMap = new Map<Vendors, TokenBucket>();
 
@@ -29,12 +11,9 @@ const tokenBucketsMap = new Map<Vendors, TokenBucket>();
  */
 function isRateLimited(vendor: Vendors): boolean {
 	const currentTime = Date.now();
+	initializeTokenBucket(vendor, currentTime);
 
-	if (!tokenBucketsMap.has(vendor)) {
-		tokenBucketsMap.set(vendor, { tokens: VENDOR_OPTIONS[vendor].maxTokens, lastRefill: currentTime });
-	}
-
-	const bucket = tokenBucketsMap.get(vendor);
+	const bucket = tokenBucketsMap.get(vendor)!;
 	const elapsed = (currentTime - bucket.lastRefill) / 1000;
 	const tokensToAdd = Math.floor(elapsed * VENDOR_OPTIONS[vendor].refillRate);
 
@@ -45,6 +24,15 @@ function isRateLimited(vendor: Vendors): boolean {
 		bucket.tokens--;
 		return false;
 	} else return true;
+}
+
+function initializeTokenBucket(vendor: Vendors, currentTime: number) {
+	if (!tokenBucketsMap.has(vendor)) {
+		tokenBucketsMap.set(vendor, {
+			tokens: VENDOR_OPTIONS[vendor].maxTokens,
+			lastRefill: currentTime
+		});
+	}
 }
 
 export default { isRateLimited };

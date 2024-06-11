@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@services": ["src/services"],
+      "@types": ["src/types"],
+    },
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
   },
   "lib": ["es2015"],
   "include": ["**/*.ts"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist"],
 }
