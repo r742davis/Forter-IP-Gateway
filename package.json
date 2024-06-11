@@ -6,7 +6,7 @@
     "clean": "rimraf dist",
     "start": "npm run build && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "npm run clean && tsc --watch"    
+    "watch": "npm run clean && tsc --watch"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "module-alias": "^2.2.3",
     "node-cache": "^5.1.2"
   },
   "devDependencies": {
@@ -25,5 +26,8 @@
     "rimraf": "^5.0.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "_moduleAliases": {
+    "@services": "dist/services"
   }
 }

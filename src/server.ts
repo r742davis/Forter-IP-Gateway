@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import cache from './cache';
@@ -14,9 +15,9 @@ app.listen(PORT, () => {
 });
 
 app.get('/country', async (req: Request, res: Response) => {
-	const ip = req.ip === process.env.LOCAL_IPV4 || req.ip === process.env.LOCAL_IPV6 ? await getIpAddress() : req.ip;
+	const ip = req.query.ip ?? (req.ip === process.env.LOCAL_IPV4 || req.ip === process.env.LOCAL_IPV6 ? await getIpAddress() : req.ip);
 
-	if (!ip || typeof ip !== 'string') return res.status(400).json({ error: `Please enter an IP Address in string format - Requested Address: ${ip}` });
+	if (!ip || typeof ip !== 'string') return res.status(400).json({ error: `Please add IP Address to query parameters - Requested Address: ${ip}` });
 
 	const cachedIp = cache.get(ip);
 	if (cachedIp) return res.json({ country: cachedIp, cached: true });
