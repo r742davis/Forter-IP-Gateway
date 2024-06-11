@@ -107,7 +107,7 @@ Although this is a simple app, these considerations show that there are a lot of
 
 ## Testing
 
-### List of Random IPs
+### Retrieve Correct Country Names from IP Addresses
 1. Launch the local dev environment (see: **How to Launch the App Locally** section)
 2. Replace `{IP_ADDRESS_GOES_HERE}` with each one of the IP addresses listed below: `http://localhost:3000/country?ip={IP_ADDRESS_GOES_HERE}`
 
@@ -118,3 +118,17 @@ Although this is a simple app, these considerations show that there are a lot of
 | 112.110.202.18    | India     |
 | 78.155.9.99 | Switzerland |
 | 78.236.220.47 | France |
+
+#### Error States
+- Rate Limiting:
+    1. Open project in your IDE
+    2. Go to the `server.ts` file and remove the bangs (!) from the `rateLimiter` on lines 27 and 28
+    3. Start the server: `npm run start`
+    4. Navigate to `http://localhost:3000/country?ip=117.36.32.155`
+    5. You should encounter the "All vendors are rate limited currently" error
+
+- Total Error:
+    1. Open project in your IDE
+    3. Start the server: `npm run start`
+    4. Navigate to `http://localhost:3000/country?ip=not-real-ip`
+    5. You should encounter the "Incorrect IP - Could Not Fetch Country" error

@@ -31,7 +31,7 @@ app.get('/country', async (req: Request, res: Response) => {
 		if (country) {
 			cache.set(ip, country);
 			res.json({ country });
-		} else res.status(500).json({ error: 'Could not fetch country' });
+		} else res.status(500).json({ error: 'Incorrect IP - Could Not Fetch Country' });
 	} catch (error) {
 		res.status(500).json({ error: `Error Occurred: ${error}` });
 	}
