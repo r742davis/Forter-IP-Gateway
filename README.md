@@ -2,7 +2,7 @@
 This is a simple API gateway server that provides a country name associated with an IP address as a JSON response. The user can hit one API endpoint to retrieve their IP location for free.
 
  ### Acceptance Criteria:
- 1. API Request includes computer IP address
+ 1. API Request includes IP address from query parameter
  2. API Response includes associated country name to IP address
  3. Use at least 2 IP vendors
  4. Use naive cache for previously requested IP addresses
